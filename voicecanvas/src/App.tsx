@@ -227,7 +227,6 @@ function App() {
       <footer className="h-10 flex items-center justify-center text-xs text-slate-400">
         Tool: {tool} · {shapes.length} elements
       </footer>
-      // Adding more logic.
     </div>
   );
 }
