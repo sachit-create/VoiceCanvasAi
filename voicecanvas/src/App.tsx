@@ -8,7 +8,9 @@ const App = () => {
   return (
     <>
       <Header />
-      <ToolBar onSelect={setSelectedTool} />
+      <ToolBar
+       onSelect={setSelectedTool}
+       selectedTool={selectedTool} />
       <h1>Currently selected: {selectedTool}</h1>
     </>
   )
