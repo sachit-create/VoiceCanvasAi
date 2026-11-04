@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 const Canvas = () => {
   const [startPoint, setStartPoint] = useState([0, 0]);
   const [endPoint, setEndPoint] = useState([0, 0]);
@@ -7,6 +8,9 @@ const Canvas = () => {
 
   return (
     <>
+      <button 
+      className="bg-red-400 p-2 m-1 rounded-full hover:bg-red-800"
+      onClick={() => {setStartPoint([0,0]); setEndPoint([0,0]); setIsDrawing(false)}}>Clear</button>
       <svg
         viewBox="0 0 1000 600"
         className="bg-white h-full w-full border-2 border-black"
