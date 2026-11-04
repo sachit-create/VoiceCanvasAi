@@ -17,7 +17,7 @@ const Canvas = () => {
         preserveAspectRatio="none"
         onPointerDown={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
-
+          event.currentTarget.setPointerCapture(event.pointerId);
           //Calculating svg coordinates
           const x = (event.clientX - rect.left) * (1000 / rect.width);
           const y = (event.clientY - rect.top) * (600 / rect.height);
