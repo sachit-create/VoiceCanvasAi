@@ -6,7 +6,7 @@ type ToolButtonProps = {
 
 const ToolButton = ({ name, setSelect, isActive}: ToolButtonProps) => {
   return (
-    <button className={`${isActive ? 'bg-blue-400' : 'bg-black'} text-white rounded-full p-2`} onClick={() => setSelect(name)}>
+    <button className={`${isActive ? 'text-blue-400' : 'text-black hover:underline'} text-xl font-bold rounded-full transition-all duration-120`} onClick={() => setSelect(name)}>
       {name}
     </button>
   );

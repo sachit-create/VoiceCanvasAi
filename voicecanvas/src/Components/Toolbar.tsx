@@ -18,7 +18,7 @@ const tools: string[] = [
 ];
 
 return (
-    <div className="bg-black rounded-full p-1 m-2 flex justify-around items-center">
+    <div className="border-2 border-gray-400 shadow-gray-400 shadow-md rounded-full p-2 m-4 flex justify-around items-center">
       {tools.map((tool) => (
         <ToolButton 
         name={tool} 
