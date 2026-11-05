@@ -9,11 +9,11 @@ const Canvas = () => {
   return (
     <>
       <button 
-      className="bg-red-400 p-2 m-1 rounded-full hover:bg-red-800"
+      className="bg-red-400 px-6 py-2 mt-2 m-4 text-xl font-bold shadow-md shadow-black rounded-full hover:bg-red-300"
       onClick={() => {setStartPoint([0,0]); setEndPoint([0,0]); setIsDrawing(false)}}>Clear</button>
       <svg
         viewBox="0 0 1000 600"
-        className="bg-white h-full w-full border-2 border-black"
+        className="bg-white h-full w-full border-2 border-black rounded-lg"
         preserveAspectRatio="none"
         onPointerDown={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
