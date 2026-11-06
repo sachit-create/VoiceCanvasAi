@@ -39,8 +39,17 @@ const Canvas = ({startPoint,endPoint,isDrawing,setStartPoint,setEndPoint,setIsDr
           setEndPoint([x, y]);
           setIsDrawing(false);
         }}
+        onPointerMove={(event) =>{
+          if (!isDrawing) return;
+
+          const rect = event.currentTarget.getBoundingClientRect();
+
+          const x = (event.clientX - rect.left) * (1000/ rect.width);
+          const y = (event.clientY - rect.top) * (600/ rect.height);
+
+          setEndPoint([x,y]);
+        }}
       >
-        {!isDrawing && (
           <rect
             x={Math.min(startPoint[0], endPoint[0])}
             y={Math.min(startPoint[1], endPoint[1])}
@@ -50,7 +59,7 @@ const Canvas = ({startPoint,endPoint,isDrawing,setStartPoint,setEndPoint,setIsDr
             strokeWidth="2"
             fill="none"
           />
-        )}
+        
       </svg>
     </>
   );
