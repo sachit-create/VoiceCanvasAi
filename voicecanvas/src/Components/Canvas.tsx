@@ -49,6 +49,9 @@ const Canvas = ({startPoint,endPoint,isDrawing,setStartPoint,setEndPoint,setIsDr
 
           setEndPoint([x,y]);
         }}
+        onPointerCancel={() => {
+          setIsDrawing(false);
+        }}
       >
           <rect
             x={Math.min(startPoint[0], endPoint[0])}
