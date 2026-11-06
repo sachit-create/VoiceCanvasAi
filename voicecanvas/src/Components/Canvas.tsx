@@ -1,16 +1,17 @@
-import { useState } from "react";
+type CanvasProps = {
+  startPoint: number[],
+  endPoint: number[],
+  isDrawing: boolean,
+  setStartPoint: (point: number[]) => void,
+  setEndPoint: (point: number[]) => void,
+  setIsDrawing: (flag: boolean) => void;
+}
 
 
-const Canvas = () => {
-  const [startPoint, setStartPoint] = useState([0, 0]);
-  const [endPoint, setEndPoint] = useState([0, 0]);
-  const [isDrawing, setIsDrawing] = useState(false);
+const Canvas = ({startPoint,endPoint,isDrawing,setStartPoint,setEndPoint,setIsDrawing}: CanvasProps) => {
 
   return (
     <>
-      <button 
-      className="bg-red-400 px-6 py-2 mt-2 m-4 text-xl font-bold shadow-md shadow-black rounded-full hover:bg-red-300"
-      onClick={() => {setStartPoint([0,0]); setEndPoint([0,0]); setIsDrawing(false)}}>Clear</button>
       <svg
         viewBox="0 0 1000 600"
         className="bg-white h-full w-full border-2 border-black rounded-lg"
@@ -37,9 +38,6 @@ const Canvas = () => {
 
           setEndPoint([x, y]);
           setIsDrawing(false);
-        }}
-        onPointerLeave={() => {
-          // I'll handle this properly with pointer capture soon.
         }}
       >
         {!isDrawing && (
