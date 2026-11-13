@@ -1,13 +1,4 @@
-import { useState } from "react";
-
-type CanvasProps = {
-  startPoint: number[];
-  endPoint: number[];
-  isDrawing: boolean;
-  setStartPoint: (point: number[]) => void;
-  setEndPoint: (point: number[]) => void;
-  setIsDrawing: (flag: boolean) => void;
-};
+import { useState, type Dispatch, type SetStateAction, useEffect } from "react";
 
 type RectangleShape = {
   id: string;
@@ -17,17 +8,27 @@ type RectangleShape = {
   height: number;
 };
 
+type CanvasProps = {
+  shapes: RectangleShape[];
+  isDrawing: boolean;
+  setIsDrawing: (flag: boolean) => void;
+  setShapes: Dispatch<SetStateAction<RectangleShape[]>>;
+};
+
 const Canvas = ({
-  startPoint,
-  endPoint,
   isDrawing,
-  setStartPoint,
-  setEndPoint,
+  shapes,
   setIsDrawing,
+  setShapes,
 }: CanvasProps) => {
-  const [shapes, setShapes] = useState<RectangleShape[]>([]);
   const [draft, setDraft] = useState<RectangleShape | null>(null);
   const [startPointLocal, setStartPointLocal] = useState([0, 0]);
+
+  useEffect(() => {
+    if (!isDrawing) {
+      setDraft(null);
+    }
+  }, [isDrawing]);
 
   return (
     <>
@@ -44,7 +45,6 @@ const Canvas = ({
 
           // console.log("SVG coordinates:",x,y);
           setStartPointLocal([x, y]);
-          setEndPoint([x, y]);
           setIsDrawing(true);
 
           setDraft({
@@ -55,17 +55,10 @@ const Canvas = ({
             height: 0,
           });
         }}
-        onPointerUp={(event) => {
+        onPointerUp={() => {
           if (!isDrawing) return;
 
-          const rect = event.currentTarget.getBoundingClientRect();
-
-          const x = (event.clientX - rect.left) * (1000 / rect.width);
-          const y = (event.clientY - rect.top) * (600 / rect.height);
-
-          setEndPoint([x, y]);
-
-          if (draft !== null) {
+          if (draft !== null && draft.width > 2 && draft.height > 2) {
             setShapes((previousShapes) => [...previousShapes, draft]);
           }
 
@@ -79,8 +72,6 @@ const Canvas = ({
 
           const x = (event.clientX - rect.left) * (1000 / rect.width);
           const y = (event.clientY - rect.top) * (600 / rect.height);
-
-          setEndPoint([x, y]);
 
           if (draft !== null) {
             const [startX, startY] = startPointLocal;
@@ -120,17 +111,16 @@ const Canvas = ({
 
         {draft && (
           <rect
-          key={draft.id}
-          x={draft.x}
-          y={draft.y}
-          width={draft.width}
-          height={draft.height}
-          stroke="blue"
-          strokeWidth="2"
-          fill="none"
+            key={draft.id}
+            x={draft.x}
+            y={draft.y}
+            width={draft.width}
+            height={draft.height}
+            stroke="blue"
+            strokeWidth="2"
+            fill="none"
           />
-        )
-        }
+        )}
       </svg>
     </>
   );
