@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 type CanvasProps = {
   startPoint: number[],
   endPoint: number[],
@@ -7,8 +9,17 @@ type CanvasProps = {
   setIsDrawing: (flag: boolean) => void;
 }
 
+type RectangleShape = {
+  id: string;
+  x:number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 const Canvas = ({startPoint,endPoint,isDrawing,setStartPoint,setEndPoint,setIsDrawing}: CanvasProps) => {
+  const [shapes,setShapes] = useState<RectangleShape[]>([]);
+  const [draft, setDraft] = useState<RectangleShape | null>(null);
 
   return (
     <>
@@ -53,15 +64,18 @@ const Canvas = ({startPoint,endPoint,isDrawing,setStartPoint,setEndPoint,setIsDr
           setIsDrawing(false);
         }}
       >
-          <rect
-            x={Math.min(startPoint[0], endPoint[0])}
-            y={Math.min(startPoint[1], endPoint[1])}
-            width={Math.abs(endPoint[0] - startPoint[0])}
-            height={Math.abs(endPoint[1] - startPoint[1])}
-            stroke="black"
-            strokeWidth="2"
-            fill="none"
-          />
+          {shapes.map((shape) => (
+            <rect
+              key={shape.id}
+              x={shape.x}
+              y={shape.y}
+              width={shape.width}
+              height={shape.height}
+              stroke="black"
+              strokeWidth="2"
+              fill="none"
+            />
+          ))}
         
       </svg>
     </>
